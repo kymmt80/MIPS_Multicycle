@@ -1,5 +1,5 @@
-module datapath(input clk,rst,ld_PC,ld_IR,ld_A,MemRead,MemWrite,push,pop,top,PCsrc,s1,s2,s4,input[1:0]s3,input [2:0]ALU_operation,output [8:0]inst,output Zero);
-    wire [7:0]MemOut,Inst,MDRout,StackIn,StackOut,Aout,Bout,ALUinA,ALUinB,ALUout,ALUregOut;
+module datapath(input clk,rst,ld_PC,ld_IR,ld_A,MemRead,MemWrite,push,pop,top,PCsrc,s1,s2,s4,input[1:0]s3,input [2:0]ALU_operation,output [7:0]inst,output Zero);
+    wire [7:0]MemOut,MDRout,StackIn,StackOut,Aout,Bout,ALUinA,ALUinB,ALUout,ALUregOut;
     wire [4:0]instAddress,PCsrcIn,Address;
 
     register #5 PC(
@@ -30,7 +30,7 @@ module datapath(input clk,rst,ld_PC,ld_IR,ld_A,MemRead,MemWrite,push,pop,top,PCs
         .ld(ld_IR),
         .rst(rst),
         .Qin(MemOut),
-        .Q(Inst)
+        .Q(inst)
     );
 
     register MDR(
@@ -83,7 +83,7 @@ module datapath(input clk,rst,ld_PC,ld_IR,ld_A,MemRead,MemWrite,push,pop,top,PCs
 
     mux3nton Amux(
         .a(Aout),
-        .b(instAddress),
+        .b({3'b000,instAddress}),
         .c(8'd0),
         .s(s3),
         .o(ALUinA)

@@ -3,7 +3,7 @@ reg[7:0] mem[0:255];
 reg [7:0]stack_ptr;
 always @(posedge clk,posedge rst) begin
     if(rst)
-        stack_ptr=8'd0;
+        stack_ptr=8'b11111111;
     else begin
         if(pop)begin
             d_out=mem[stack_ptr];
